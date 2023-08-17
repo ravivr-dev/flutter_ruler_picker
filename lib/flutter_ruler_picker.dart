@@ -243,7 +243,7 @@ class RulerPickerState extends State<RulerPicker> {
   }
 
   //尺子刻度间隔
-  final double _ruleScaleInterval = 10;
+  final double _ruleScaleInterval = 16;
 
 //使得尺子刻度和指示器对齐
   void fixOffset() {

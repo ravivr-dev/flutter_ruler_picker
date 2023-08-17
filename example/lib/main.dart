@@ -86,17 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 50),
             RulerPicker(
+              marker: Icon(Icons.arrow_drop_down_sharp, size: 40, color: Colors.white,),
+              rulerBackgroundColor: Color(0xFFE2DDCD),
               controller: _rulerPickerController!,
               beginValue: 30,
               endValue: 50000,
               initValue: currentValue,
-              scaleLineStyleList: [
+              scaleLineStyleList: const [
                 ScaleLineStyle(
-                    color: Colors.grey, width: 1.5, height: 30, scale: 0),
+                    color: Color(0xff3A3A3A), width: 2, height: 60, scale: 0),
                 ScaleLineStyle(
-                    color: Colors.grey, width: 1, height: 25, scale: 5),
+                    color: Color(0xff3A3A3A), width: 2, height: 41, scale: 5),
                 ScaleLineStyle(
-                    color: Colors.grey, width: 1, height: 15, scale: -1)
+                    color: Color(0xff3A3A3A), width: 2, height: 30, scale: -1)
               ],
               // onBuildRulerScalueText: (index, scaleValue) {
               //   return ''.toString();
@@ -107,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               width: MediaQuery.of(context).size.width,
-              height: 80,
+              height: 98,
               rulerMarginTop: 8,
               // marker: Container(
               //     width: 8,
