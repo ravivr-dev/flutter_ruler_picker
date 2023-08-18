@@ -45,7 +45,7 @@ class _MyHomePageState2 extends State<MyHomePage> {
 class _MyHomePageState extends State<MyHomePage> {
   RulerPickerController? _rulerPickerController;
 
-  int currentValue = (15000~/50);
+  int currentValue = (15000~/500);
 
   int valueVisibleOnScreen = 15000;
 
@@ -89,11 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 50),
             RulerPicker(
-              marker: Icon(
-                Icons.arrow_drop_down_sharp,
-                size: 40,
-                color: Colors.white,
-              ),
+              marker: const ScaleMarkerWidget(),
               rulerBackgroundColor: Color(0xFFE2DDCD),
               controller: _rulerPickerController!,
               beginValue: 0,
@@ -114,17 +110,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   currentValue = value;
 
-                  valueVisibleOnScreen = value*50;
+                  valueVisibleOnScreen = value*500;
                 });
               },
 
               onBuildRulerScalueText: (index, rulerScaleValue) {
-                return (rulerScaleValue *50).toString();
+                return (rulerScaleValue *500).toString();
               },
 
               width: MediaQuery.of(context).size.width,
               height: 98,
-              rulerMarginTop: 8,
+              rulerMarginTop: 0,
               // marker: Container(
               //     width: 8,
               //     height: 50,
@@ -153,3 +149,62 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+class ScaleMarkerWidget extends StatelessWidget {
+  const ScaleMarkerWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 98,
+      width: 16 * 2,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          RotatedBox(
+            quarterTurns: 2,
+            child: CustomPaint(
+              painter: TrianglePainter(),
+              child: const SizedBox(
+                width: 20,
+                height: 20,
+              ),
+            ),
+          ),
+          CustomPaint(
+            painter: TrianglePainter(),
+            child: const SizedBox(
+              width: 20,
+              height: 20,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TrianglePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
+    final path = Path();
+    path.moveTo(size.width / 2, 0); // Top vertex
+    path.lineTo(size.width, size.height); // Bottom right vertex
+    path.lineTo(0, size.height); // Bottom left vertex
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
