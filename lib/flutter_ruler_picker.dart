@@ -225,13 +225,14 @@ class RulerPickerState extends State<RulerPicker> {
               child: _buildRulerScaleLine(index)),
           Positioned(
             bottom: 5,
-            width: 50,
+            width: 70,
             left: -25 + _ruleScaleInterval / 2,
             child: index % 10 == 0
                 ? Container(
                     alignment: Alignment.center,
                     child: Text(
                       getRulerScaleText(index),
+                      maxLines: 1,
                       style: widget.rulerScaleTextStyle,
                     ),
                   )

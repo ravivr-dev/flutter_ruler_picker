@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
+
   @override
   // _MyHomePageState2 createState() => _MyHomePageState2();
   _MyHomePageState createState() => _MyHomePageState();
@@ -44,7 +45,9 @@ class _MyHomePageState2 extends State<MyHomePage> {
 class _MyHomePageState extends State<MyHomePage> {
   RulerPickerController? _rulerPickerController;
 
-  int currentValue = 4000;
+  int currentValue = (15000~/50);
+
+  int valueVisibleOnScreen = 15000;
 
   @override
   void initState() {
@@ -78,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              currentValue.toString(),
+              valueVisibleOnScreen.toString(),
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -86,10 +89,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 50),
             RulerPicker(
-              marker: Icon(Icons.arrow_drop_down_sharp, size: 40, color: Colors.white,),
+              marker: Icon(
+                Icons.arrow_drop_down_sharp,
+                size: 40,
+                color: Colors.white,
+              ),
               rulerBackgroundColor: Color(0xFFE2DDCD),
               controller: _rulerPickerController!,
-              beginValue: 30,
+              beginValue: 0,
               endValue: 50000,
               initValue: currentValue,
               scaleLineStyleList: const [
@@ -106,8 +113,15 @@ class _MyHomePageState extends State<MyHomePage> {
               onValueChange: (value) {
                 setState(() {
                   currentValue = value;
+
+                  valueVisibleOnScreen = value*50;
                 });
               },
+
+              onBuildRulerScalueText: (index, rulerScaleValue) {
+                return (rulerScaleValue *50).toString();
+              },
+
               width: MediaQuery.of(context).size.width,
               height: 98,
               rulerMarginTop: 8,
