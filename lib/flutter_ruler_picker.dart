@@ -234,7 +234,7 @@ class RulerPickerState extends State<RulerPicker> {
               alignment: Alignment.topCenter,
               child: _buildRulerScaleLine(index)),
           Positioned(
-            bottom: 5,
+            bottom: 26,
             width: 50,
             left: -25 + _ruleScaleInterval / 2,
             child: index % 10 == 0 || _ruleScaleInterval>16
