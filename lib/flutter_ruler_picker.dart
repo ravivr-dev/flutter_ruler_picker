@@ -35,7 +35,9 @@ class _TrianglePainter extends CustomPainter {
 /// 用于 RulerPicker 的控制器，可以在构造函数里初始化默认值
 class RulerPickerController extends ValueNotifier<int> {
   RulerPickerController({int value = 0}) : super(value);
+
   int get value => super.value;
+
   set value(int newValue) {
     super.value = newValue;
   }
@@ -60,6 +62,7 @@ class RulerPicker extends StatefulWidget {
   final double rulerMarginTop;
   final Color rulerBackgroundColor;
   final RulerPickerController? controller;
+  final double ruleScaleInterval;
 
   RulerPicker({
     required this.beginValue,
@@ -86,8 +89,10 @@ class RulerPicker extends StatefulWidget {
     this.initValue = 0,
     this.rulerBackgroundColor = Colors.white,
     this.controller,
+    this.ruleScaleInterval = 16,
   }) : assert(endValue > beginValue,
             initValue >= beginValue && initValue <= endValue);
+
   @override
   State<StatefulWidget> createState() {
     return RulerPickerState();
@@ -101,9 +106,14 @@ class RulerPickerState extends State<RulerPicker> {
   late ScrollController scrollController;
   Map<int, ScaleLineStyle> _scaleLineStyleMap = {};
 
+  //尺子刻度间隔
+  late final double _ruleScaleInterval;
+
   @override
   void initState() {
     super.initState();
+
+    _ruleScaleInterval = widget.ruleScaleInterval;
 
     widget.scaleLineStyleList.forEach((element) {
       _scaleLineStyleMap[element.scale] = element;
@@ -242,9 +252,6 @@ class RulerPickerState extends State<RulerPicker> {
       ),
     );
   }
-
-  //尺子刻度间隔
-  final double _ruleScaleInterval = 16;
 
 //使得尺子刻度和指示器对齐
   void fixOffset() {
