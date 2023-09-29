@@ -237,7 +237,7 @@ class RulerPickerState extends State<RulerPicker> {
             bottom: 5,
             width: 50,
             left: -25 + _ruleScaleInterval / 2,
-            child: index % 10 == 0
+            child: index % 10 == 0 || _ruleScaleInterval>16
                 ? Container(
                     alignment: Alignment.center,
                     child: Text(
